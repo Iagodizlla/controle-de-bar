@@ -1,0 +1,51 @@
+﻿@model AbrirContaViewModel
+
+@{
+    Layout = "_Layout";
+    ViewBag.Titulo = "Abertura de Conta";
+}
+
+<hr />
+<div class="row justify-content-center my-5">
+    <div class="col-md-8">
+        <div class="card rounded-4 border-0">
+            <div class="card-body p-md-5">
+                <form asp-action="Abrir">
+                    <h3>Formulário de Abertura de Conta</h3>
+
+                    @if (ViewData.ModelState["CadastroUnico"]?.Errors.Count > 0)
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show my-3" role="alert">
+                            @ViewData.ModelState["CadastroUnico"]!.Errors.First().ErrorMessage
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+
+                    <div class="form-group d-grid gap-2 mt-3">
+                        <label asp-for="Titular" class="control-label fs-5">Titular:</label>
+                        <input asp-for="Titular" class="form-control" />
+                        <span asp-validation-for="Titular" class="text-danger"></span>
+                    </div>
+                    <div class="form-group d-grid gap-2 mt-3">
+                        <label asp-for="MesaId" class="control-label fs-5">Mesa:</label>
+                        <select asp-for="MesaId" asp-items="@Model.MesasDisponiveis" class="form-select"></select>
+                        <span asp-validation-for="MesaId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group d-grid gap-2 mt-3">
+                        <label asp-for="GarcomId" class="control-label fs-5">Garçom:</label>
+                        <select asp-for="GarcomId" asp-items="@Model.GarconsDisponiveis" class="form-select"></select>
+                        <span asp-validation-for="GarcomId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group d-flex align-items-center justify-content-end gap-3 mt-5">
+                        <a href="/contas">Voltar para a listagem</a>
+                        <button type="submit" class="btn btn-primary rounded-3 px-5">Confirmar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,63 @@
+﻿@model VisualizarContasViewModel
+
+@{
+    Layout = "_Layout";
+    ViewBag.Titulo = "Visualização de Contas";
+}
+
+<div class="d-grid d-lg-flex flex-wrap gap-2 align-items-center">
+    <a class="btn btn-primary px-5" asp-action="Abrir">
+        <i class="bi bi-plus"></i>
+        Abrir Conta
+    </a>
+
+    <div class="ms-lg-auto d-grid d-lg-flex flex-wrap gap-2">
+        <a class="btn btn-outline-primary px-3 btn-filtro" asp-action="Index">
+            <i class="bi bi-list"></i>
+            Todas as contas
+        </a>
+
+        <a class="btn btn-outline-primary px-3 btn-filtro" asp-action="Index" asp-route-status="abertas">
+            <i class="bi bi-cart"></i>
+            Contas abertas
+        </a>
+
+        <a class="btn btn-outline-primary px-3 btn-filtro" asp-action="Index" asp-route-status="fechadas">
+            <i class="bi bi-cart-check"></i>
+            Contas fechadas
+        </a>
+    </div>
+</div>
+
+<hr />
+
+<div class="d-flex flex-wrap gap-2">
+    @foreach (var item in Model.Registros)
+    {
+        <div class="col-12 col-md-3">
+            <div class="card border-0" style="height: 180px;">
+                <div class="card-body">
+                    <h5 class="card-title">Titular: @item.Titular</h5>
+                    <p class="card-text mb-1"><span class="fw-semibold">Mesa:</span> @item.Mesa</p>
+                    <p class="card-text"><span class="fw-semibold">Garçom:</span> @item.Garcom</p>
+
+                    @if (item.EstaAberta)
+                    {
+                        <span class="d-flex gap-1 justify-content-end mt-4">
+                            <a title="Gerenciar pedidos" asp-action="GerenciarPedidos" asp-route-id="@item.Id" class="btn btn-primary rounded-circle opcao-card">
+                                <i class="bi bi-cart"></i>
+                            </a>
+                            <a title="Fechar conta" asp-action="Fechar" asp-route-id="@item.Id" class="btn btn-success rounded-circle opcao-card">
+                                <i class="bi bi-cash-coin"></i>
+                            </a>
+                        </span>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script src="~/js/ativacaoFiltrosContas.js"></script>
+}

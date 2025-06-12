@@ -1,0 +1,40 @@
+﻿@model FecharContaViewModel
+
+@{
+    Layout = "_Layout";
+    ViewBag.Titulo = "Fechamento de Conta";
+}
+
+<hr />
+<div class="row justify-content-center my-5">
+    <div class="col-md-8">
+        <div class="card rounded-4 border-0">
+            <div class="card-body p-md-5">
+                <form asp-action="FecharConfirmado" asp-route-id="@Model.Id">
+                    <h3>Confirmação de Fechamento de Conta</h3>
+
+                    <div class="form-group d-grid gap-2 mt-3">
+                        <label asp-for="Titular" class="control-label fs-5">Titular:</label>
+                        <input asp-for="Titular" class="form-control" readonly disabled />
+                    </div>
+                    <div class="form-group d-grid gap-2 mt-3">
+                        <label asp-for="Mesa" class="control-label fs-5">Mesa:</label>
+                        <input asp-for="Mesa" class="form-control" readonly disabled />
+                    </div>
+                    <div class="form-group d-grid gap-2 mt-3">
+                        <label asp-for="Garcom" class="control-label fs-5">Garçom:</label>
+                        <input asp-for="Garcom" class="form-control" readonly disabled />
+                    </div>
+                    <div class="form-group d-grid gap-2 mt-3">
+                        <label asp-for="ValorTotal" class="control-label fs-5">Valor Total (R$):</label>
+                        <input asp-for="ValorTotal" type="number" min="0" step="0.01" pattern="^\d+(?:\,\d{1,2})?$" class="form-control" readonly disabled />
+                    </div>
+                    <div class="form-group d-flex align-items-center justify-content-end gap-3 mt-5">
+                        <a href="/contas">Voltar para a listagem</a>
+                        <button type="submit" class="btn btn-danger rounded-3 px-5">Confirmar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
