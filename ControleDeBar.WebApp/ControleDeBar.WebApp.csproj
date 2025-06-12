@@ -14,7 +14,6 @@
   <ItemGroup>
     <ProjectReference Include="..\ControleDeBar.Dominio\ControleDeBar.Dominio.csproj" />
     <ProjectReference Include="..\ControleDeBar.Infraestrutura.Arquivos\ControleDeBar.Infraestrutura.Arquivos.csproj" />
-    <ProjectReference Include="..\ControleDeBar.Infraestrutura.BancoDeDados\ControleDeBar.Infraestrutura.BancoDeDados.csproj" />
   </ItemGroup>
 
 </Project>
