@@ -7,8 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\lib\bootstrap-5.3.6-dist\.DS_Store" />
-    <None Include="wwwroot\lib\bootstrap-5.3.6-dist\css\.DS_Store" />
+	  <Compile Remove="wwwroot\lib\bootstrap-5.3.6-dist\**" />Add commentMore actions
+	  <Content Remove="wwwroot\lib\bootstrap-5.3.6-dist\**" />
+	  <EmbeddedResource Remove="wwwroot\lib\bootstrap-5.3.6-dist\**" />
+	  <None Remove="wwwroot\lib\bootstrap-5.3.6-dist\**" />
   </ItemGroup>
 
   <ItemGroup>
