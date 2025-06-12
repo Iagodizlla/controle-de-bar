@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -15,5 +15,4 @@
     <ProjectReference Include="..\ControleDeBar.Dominio\ControleDeBar.Dominio.csproj" />
     <ProjectReference Include="..\ControleDeBar.Infraestrutura.Arquivos\ControleDeBar.Infraestrutura.Arquivos.csproj" />
   </ItemGroup>
-
 </Project>

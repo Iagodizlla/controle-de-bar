@@ -10,25 +10,33 @@
 <hr />
 <div class="row justify-content-center my-5">
     <div class="col-md-8">
-        <div class="card">
+        <div class="card rounded-4 border-0">
             <div class="card-body p-md-5">
-                <form action="/mesas/editar/@Model.Id" method="post">
+                <form asp-action="Editar" asp-route-id="@Model.Id">
                     <h3>Formulário de Edição</h3>
 
-                    <div class="form-group d-grid gap-2">
-                        <label for="Numero" class="control-label fs-5">Número:</label>
-                        <input name="Numero" class="form-control" type="number" value="@Model.Numero" />
+                    <div class="form-group d-grid gap-2 mt-3">
+                        <label asp-for="Numero" class="control-label fs-5">Número:</label>
+                        <input asp-for="Numero" class="form-control" value="@Model.Numero" />
+                        <span asp-validation-for="Numero" class="text-danger"></span>
+
                     </div>
                     <div class="form-group d-grid gap-2 mt-3">
-                        <label for="Capacidade" class="control-label fs-5">Capacidade:</label>
-                        <input name="Capacidade" class="form-control" type="number" value="@Model.Capacidade" />
+                        <label asp-for="Capacidade" class="control-label fs-5">Capacidade:</label>
+                        <input asp-for="Capacidade" class="form-control" value="@Model.Capacidade" />
+                        <span asp-validation-for="Capacidade" class="text-danger"></span>
+
                     </div>
                     <div class="form-group d-flex align-items-center justify-content-end gap-3 mt-5">
                         <a href="/mesas">Voltar para a listagem</a>
-                        <button type="submit" class="btn btn-primary px-5">Confirmar</button>
+                        <button type="submit" class="btn btn-primary rounded-3 px-5">Confirmar</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

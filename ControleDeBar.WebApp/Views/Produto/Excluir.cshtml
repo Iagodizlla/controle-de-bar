@@ -1,10 +1,8 @@
-﻿@using ControleDeBar.WebApp.Models
-
-@model ExcluirMesaViewModel
+﻿@model ExcluirProdutoViewModel
 
 @{
     Layout = "_Layout";
-    ViewBag.Titulo = "Exclusão de Mesa";
+    ViewBag.Titulo = "Exclusão de Produto";
 }
 
 <hr />
@@ -14,11 +12,11 @@
             <div class="card-body p-md-5">
                 <h3>Formulário de Exclusão</h3>
 
-                <p class="mt-4">Você deseja realmente excluir a mesa "@Model.Numero"?</p>
+                <p class="mt-4">Você deseja realmente excluir o produto "@Model.Nome"?</p>
 
                 <form asp-action="Excluir" asp-route-id="@Model.Id">
                     <div class="form-group d-flex align-items-center justify-content-end gap-3">
-                        <a href="/mesas">Voltar para a listagem</a>
+                        <a href="/produtos">Voltar para a listagem</a>
                         <button type="submit" class="btn btn-danger px-5">Confirmar</button>
                     </div>
                 </form>

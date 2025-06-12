@@ -1,20 +1,20 @@
-namespace ControleDeBar.WebApp
+namespace ControleDeBar.WebApp;
+
+public class Program
 {
-    public class Program
+    public static void Main(string[] args)
     {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
+        var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddControllersWithViews();
+        builder.Services.AddControllersWithViews();
 
-            var app = builder.Build();
+        var app = builder.Build();
 
-            app.UseStaticFiles();
-            app.UseRouting();
-            app.MapDefaultControllerRoute();
+        app.UseAntiforgery();
+        app.UseStaticFiles();
+        app.UseRouting();
+        app.MapDefaultControllerRoute();
 
-            app.Run();
-        }
+        app.Run();
     }
 }

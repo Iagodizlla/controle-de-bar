@@ -11,39 +11,19 @@
     <title>@ViewBag.Titulo | Controle de Bar</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container">
-            <a class="navbar-brand fs-4 fw-bold" href="/">Controle de Bar</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav gap-2 ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link text-primary" href="/mesas">Mesas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-primary" href="/garcons">Garçons</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-primary" href="/produtos">Produtos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-primary" href="/contas">Contas</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <partial name="_NavbarPartial"/>
 
     <header class="container my-4">
         <h2>@ViewBag.Titulo</h2>
     </header>
-    <main class="container">
+    <main class="container my-4">
         @RenderBody()
     </main>
 
     <script src="~/lib/bootstrap-5.3.6-dist/js/bootstrap.bundle.min.js"></script>
-@*     <script src="~/js/ativacaoNavbar.js"></script> *@
+    <script src="~/js/ativacaoNavbar.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    @RenderSection("Scripts", required: false);
 </body>
 </html>

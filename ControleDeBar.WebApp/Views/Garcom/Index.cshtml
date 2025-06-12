@@ -1,14 +1,12 @@
-﻿@using ControleDeBar.WebApp.Models
-
-@model VisualizarMesasViewModel
+﻿@model VisualizarGarconsViewModel
 
 @{
     Layout = "_Layout";
-    ViewBag.Titulo = "Visualização de Mesas";
+    ViewBag.Titulo = "Visualização de Garçons";
 }
 
 <p>
-    <a class="btn btn-primary px-4" href="/mesas/cadastrar">
+    <a class="btn btn-primary px-4" href="/garcons/cadastrar">
         <i class="bi bi-plus"></i>
         Cadastrar Novo/a
     </a>
@@ -22,17 +20,17 @@
         <div class="col-12 col-md-3">
             <div class="card border-0">
                 <div class="card-body">
-                    <h5 class="card-title">Mesa: #@item.Numero</h5>
-                    <p class="card-text"><span class="fw-semibold">Quantidade de Assentos:</span> @item.Capacidade</p>
+                    <h5 class="card-title">Garçom: @item.Nome</h5>
+                    <p class="card-text"><span class="fw-semibold">CPF:</span> @item.Cpf</p>
 
                     <span class="d-flex gap-1 justify-content-end mt-4">
-                        <a href="/mesas/detalhes/@item.Id" class="btn btn-secondary rounded-circle opcao-card">
+                        <a href="/garcons/detalhes/@item.Id" class="btn btn-secondary rounded-circle opcao-card">
                             <i class="bi bi-search"></i>
                         </a>
-                        <a href="/mesas/editar/@item.Id" class="btn btn-primary rounded-circle opcao-card">
+                        <a href="/garcons/editar/@item.Id" class="btn btn-primary rounded-circle opcao-card">
                             <i class="bi bi-pencil-square"></i>
                         </a>
-                        <a href="/mesas/excluir/@item.Id" class="btn btn-danger rounded-circle opcao-card">
+                        <a href="/garcons/excluir/@item.Id" class="btn btn-danger rounded-circle opcao-card">
                             <i class="bi bi-trash"></i>
                         </a>
                     </span>

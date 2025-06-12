@@ -1,5 +1,31 @@
 ﻿@{
 	Layout = "_Layout";
+	ViewBag.Titulo = "Página Inicial";
 }
 
-<h1>Olá mundo!</h1>
+<hr/>
+<div class="d-flex flex-wrap gap-2 gap-lg-5">
+	<div class="col order-1 order-lg-0 py-lg-5">
+		<h2 class="text-primary fs-1 fw-bold">Seja bem-vindo/a!</h2>
+
+		<p class="fs-4 mt-3">
+			Nossa aplicação oferece a melhor experiência de gerência digital de estabelecimentos da área de serviços.
+		</p>
+
+		<p class="fs-4 mt-3">
+			Você tem a possibilidade de gerenciar os dados e status de mesas, garçons, produtos e contas, além de controlar os pedidos e fechamento de contas...
+		</p>
+
+		<p class="fs-4 mt-4 text-secondary-emphasis">Clique em uma das opções abaixo para prosseguir:</p>
+
+		<div class="d-grid d-lg-flex flex-wrap gap-2">
+			<a href="/mesas" class="btn btn-outline-primary fw-semibold px-5 rounded-3">Mesas</a>
+			<a href="/garcons" class="btn btn-outline-primary fw-semibold px-5 rounded-3">Garçons</a>
+			<a href="/produtos" class="btn btn-outline-primary fw-semibold px-5 rounded-3">Produtos</a>
+			<a href="/contas" class="btn btn-outline-primary fw-semibold px-5 rounded-3">Contas</a>
+		</div>
+	</div>
+	<div class="col-lg-4 order-0 order-lg-1">
+		<img src="~/images/barista.svg" alt="Barista" class="img-fluid" />
+	</div>
+</div>

@@ -1,10 +1,8 @@
-﻿@using ControleDeBar.WebApp.Models
-
-@model DetalhesMesaViewModel
+﻿@model DetalhesGarcomViewModel
 
 @{
     Layout = "_Layout";
-    ViewBag.Titulo = "Detalhes da Mesa";
+    ViewBag.Titulo = "Detalhes do Garçom";
 }
 
 <hr />
@@ -20,15 +18,15 @@
                     <input name="Id" class="form-control" value="@Model.Id" readonly disabled />
                 </div>
                 <div class="form-group d-grid gap-2 mt-3">
-                    <label for="Numero" class="control-label fs-5">Número:</label>
-                    <input name="Numero" class="form-control" type="number" value="@Model.Numero" readonly disabled />
+                    <label for="Nome" class="control-label fs-5">Nome:</label>
+                    <input name="Nome" class="form-control" value="@Model.Nome" readonly disabled />
                 </div>
                 <div class="form-group d-grid gap-2 mt-3">
-                    <label for="Capacidade" class="control-label fs-5">Capacidade:</label>
-                    <input name="Capacidade" class="form-control" type="number" value="@Model.Capacidade" readonly disabled />
+                    <label for="Cpf" class="control-label fs-5">CPF:</label>
+                    <input name="Cpf" class="form-control" value="@Model.Cpf" readonly disabled />
                 </div>
                 <div class="form-group d-flex align-items-center justify-content-end gap-3 mt-5">
-                    <a href="/mesas">Voltar para a listagem</a>
+                    <a href="/garcons">Voltar para a listagem</a>
                 </div>
             </div>
         </div>

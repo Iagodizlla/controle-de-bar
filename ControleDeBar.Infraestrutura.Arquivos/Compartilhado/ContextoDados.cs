@@ -1,6 +1,8 @@
 ﻿using System.Text.Json.Serialization;
 using System.Text.Json;
 using ControleDeBar.Dominio.ModuloMesa;
+using ControleDeBar.Dominio.ModuloGarcom;
+using ControleDeBar.Dominio.ModuloProduto;
 
 namespace ControleDeBar.Infraestrura.Arquivos.Compartilhado;
 
@@ -10,10 +12,14 @@ public class ContextoDados
     private string arquivoArmazenamento = "dados-controle-bar.json";
 
     public List<Mesa> Mesas { get; set; }
+    public List<Garcom> Garcons { get; set; }
+    public List<Produto> Produtos { get; set; }
 
     public ContextoDados()
     {
         Mesas = new List<Mesa>();
+        Garcons = new List<Garcom>();
+        Produtos = new List<Produto>();
     }
 
     public ContextoDados(bool carregarDados) : this()
@@ -59,5 +65,7 @@ public class ContextoDados
         if (contextoArmazenado == null) return;
 
         Mesas = contextoArmazenado.Mesas;
+        Garcons = contextoArmazenado.Garcons;
+        Produtos = contextoArmazenado.Produtos;
     }
 }
