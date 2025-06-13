@@ -10,6 +10,7 @@ using ControleDeBar.Infraestrutura.Arquivos.ModuloProduto;
 using ControleDeBar.WebApp.Extensions;
 using ControleDeBar.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ControleDeBar.WebApp.Controllers;
 
@@ -64,12 +65,21 @@ public class ContaController : Controller
     public IActionResult Abrir(AbrirContaViewModel abrirVM)
     {
         var registros = repositorioConta.SelecionarContas();
+        var contasComMesasUsadas = repositorioConta.SelecionarContasAbertas();
 
         foreach (var conta in registros)
         {
             if (conta.Titular.Equals(abrirVM.Titular) && conta.EstaAberta)
             {
                 ModelState.AddModelError("CadastroUnico", "Já existe uma conta aberta para este titular.");
+                break;
+            }
+        }
+        foreach (var usada in contasComMesasUsadas)
+        {
+            if (usada.Mesa.Id == abrirVM.MesaId)
+            {
+                ModelState.AddModelError("CadastroUnico", "Já existe uma conta aberta para esta mesa.");
                 break;
             }
         }
