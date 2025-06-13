@@ -86,4 +86,32 @@ public class ContaController : Controller
 
         return RedirectToAction(nameof(Index));
     }
+
+    [HttpGet, Route("/contas/{id:guid}/fechar")]
+    public IActionResult Fechar(Guid id)
+    {
+        var registro = repositorioConta.SelecionarPorId(id);
+
+        var fecharContaVM = new FecharContaViewModel(
+            registro.Id,
+            registro.Titular,
+            registro.Mesa.Numero,
+            registro.Garcom.Nome,
+            registro.CalcularValorTotal()
+        );
+
+        return View(fecharContaVM);
+    }
+
+    [HttpPost, Route("/contas/{id:guid}/fechar")]
+    public IActionResult FecharConfirmado(Guid id)
+    {
+        var registroSelecionado = repositorioConta.SelecionarPorId(id);
+
+        registroSelecionado.Fechar();
+
+        contextoDados.Salvar();
+
+        return RedirectToAction(nameof(Index));
+    }
 }
