@@ -118,6 +118,13 @@ public class MesaController : Controller
     [HttpPost("excluir/{id:guid}")]
     public ActionResult ExcluirConfirmado(Guid id)
     {
+        foreach(var c in repositorioConta.SelecionarContasAbertas())
+        {
+            if(c.Mesa.Id == id)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+        }
         repositorioMesa.ExcluirRegistro(id);
 
         return RedirectToAction(nameof(Index));
