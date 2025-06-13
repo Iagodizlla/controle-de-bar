@@ -7,6 +7,7 @@ using ControleDeBar.Infraestrura.Arquivos.ModuloMesa;
 using ControleDeBar.Infraestrutura.Arquivos.ModuloConta;
 using ControleDeBar.Infraestrutura.Arquivos.ModuloGarcom;
 using ControleDeBar.Infraestrutura.Arquivos.ModuloProduto;
+using ControleDeBar.WebApp.Extensions;
 using ControleDeBar.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -45,5 +46,44 @@ public class ContaController : Controller
         var visualizarVM = new VisualizarContasViewModel(registros);
 
         return View(visualizarVM);
+    }
+
+    [HttpGet("abrir")]
+    public IActionResult Abrir()
+    {
+        var mesas = repositorioMesa.SelecionarRegistros();
+        var garcons = repositorioGarcom.SelecionarRegistros();
+
+        var abrirVM = new AbrirContaViewModel(mesas, garcons);
+
+        return View(abrirVM);
+    }
+
+    [HttpPost("abrir")]
+    [ValidateAntiForgeryToken]
+    public IActionResult Abrir(AbrirContaViewModel abrirVM)
+    {
+        var registros = repositorioConta.SelecionarContas();
+
+        foreach (var conta in registros)
+        {
+            if (conta.Titular.Equals(abrirVM.Titular) && conta.EstaAberta)
+            {
+                ModelState.AddModelError("CadastroUnico", "Já existe uma conta aberta para este titular.");
+                break;
+            }
+        }
+
+        if (!ModelState.IsValid)
+            return View(abrirVM);
+
+        var mesas = repositorioMesa.SelecionarRegistros();
+        var garcons = repositorioGarcom.SelecionarRegistros();
+
+        var entidade = abrirVM.ParaEntidade(mesas, garcons);
+
+        repositorioConta.CadastrarConta(entidade);
+
+        return RedirectToAction(nameof(Index));
     }
 }
