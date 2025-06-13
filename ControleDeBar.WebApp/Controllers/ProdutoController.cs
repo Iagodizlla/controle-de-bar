@@ -1,5 +1,7 @@
-﻿using ControleDeBar.Dominio.ModuloProduto;
+﻿using ControleDeBar.Dominio.ModuloConta;
+using ControleDeBar.Dominio.ModuloProduto;
 using ControleDeBar.Infraestrura.Arquivos.Compartilhado;
+using ControleDeBar.Infraestrutura.Arquivos.ModuloConta;
 using ControleDeBar.Infraestrutura.Arquivos.ModuloProduto;
 using ControleDeBar.WebApp.Extensions;
 using ControleDeBar.WebApp.Models;
@@ -12,11 +14,13 @@ public class ProdutoController : Controller
 {
     private readonly ContextoDados contextoDados;
     private readonly IRepositorioProduto repositorioProduto;
+    private readonly IRepositorioConta repositorioConta;
 
     public ProdutoController()
     {
         contextoDados = new ContextoDados(true);
         repositorioProduto = new RepositorioProdutoEmArquivo(contextoDados);
+        repositorioConta = new RepositorioContaEmArquivo(contextoDados);
     }
 
     [HttpGet]
@@ -114,6 +118,17 @@ public class ProdutoController : Controller
     [HttpPost("excluir/{id:guid}")]
     public IActionResult ExcluirConfirmado(Guid id)
     {
+
+        foreach (var c in repositorioConta.SelecionarContasAbertas())
+        {
+            foreach (var pedido in c.Pedidos)
+            {
+                if (pedido.Produto.Id == id)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+        }
         repositorioProduto.ExcluirRegistro(id);
 
         return RedirectToAction(nameof(Index));
