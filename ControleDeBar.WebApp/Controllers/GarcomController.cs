@@ -1,9 +1,11 @@
 ﻿using ControleDeBar.Dominio.ModuloGarcom;
+using ControleDeBar.Dominio.ModuloConta;
 using ControleDeBar.Infraestrura.Arquivos.Compartilhado;
 using ControleDeBar.Infraestrutura.Arquivos.ModuloGarcom;
 using ControleDeBar.WebApp.Extensions;
 using ControleDeBar.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using ControleDeBar.Infraestrutura.Arquivos.ModuloConta;
 
 namespace ControleDeBar.WebApp.Controllers;
 
@@ -12,11 +14,13 @@ public class GarcomController : Controller
 {
     private readonly ContextoDados contextoDados;
     private readonly IRepositorioGarcom repositorioGarcom;
+    private readonly IRepositorioConta repositorioConta;
 
     public GarcomController()
     {
         contextoDados = new ContextoDados(true);
         repositorioGarcom = new RepositorioGarcomEmArquivo(contextoDados);
+        repositorioConta = new RepositorioContaEmArquivo(contextoDados);
     }
 
     public IActionResult Index()
@@ -125,6 +129,13 @@ public class GarcomController : Controller
     [HttpPost("excluir/{id:guid}")]
     public IActionResult ExcluirConfirmado(Guid id)
     {
+        foreach(var c in repositorioConta.SelecionarContasAbertas())
+        {
+            if(c.Garcom.Id == id)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+        }
         repositorioGarcom.ExcluirRegistro(id);
 
         return RedirectToAction(nameof(Index));
