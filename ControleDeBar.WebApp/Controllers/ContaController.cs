@@ -114,4 +114,51 @@ public class ContaController : Controller
 
         return RedirectToAction(nameof(Index));
     }
+
+    [HttpGet, Route("/contas/{id:guid}/gerenciar-pedidos")]
+    public IActionResult GerenciarPedidos(Guid id)
+    {
+        var contaSelecionada = repositorioConta.SelecionarPorId(id);
+        var produtos = repositorioProduto.SelecionarRegistros();
+
+        var gerenciarPedidosVm = new GerenciarPedidosViewModel(contaSelecionada, produtos);
+
+        return View(gerenciarPedidosVm);
+    }
+
+    [HttpPost, Route("/contas/{id:guid}/adicionar-pedido")]
+    public IActionResult AdicionarPedido(Guid id, AdicionarPedidoViewModel adicionarPedidoVm)
+    {
+        var contaSelecionada = repositorioConta.SelecionarPorId(id);
+        var produtoSelecionado = repositorioProduto.SelecionarRegistroPorId(adicionarPedidoVm.IdProduto);
+
+        contaSelecionada.RegistrarPedido(
+            produtoSelecionado,
+            adicionarPedidoVm.QuantidadeSolicitada
+        );
+
+        contextoDados.Salvar();
+
+        var produtos = repositorioProduto.SelecionarRegistros();
+
+        var gerenciarPedidosVm = new GerenciarPedidosViewModel(contaSelecionada, produtos);
+
+        return View("GerenciarPedidos", gerenciarPedidosVm);
+    }
+
+    [HttpPost, Route("/contas/{id:guid}/remover-pedido/{idPedido:guid}")]
+    public IActionResult RemoverPedido(Guid id, Guid idPedido)
+    {
+        var contaSelecionada = repositorioConta.SelecionarPorId(id);
+
+        var pedidoRemovido = contaSelecionada.RemoverPedido(idPedido);
+
+        contextoDados.Salvar();
+
+        var produtos = repositorioProduto.SelecionarRegistros();
+
+        var gerenciarPedidosVm = new GerenciarPedidosViewModel(contaSelecionada, produtos);
+
+        return View("GerenciarPedidos", gerenciarPedidosVm);
+    }
 }

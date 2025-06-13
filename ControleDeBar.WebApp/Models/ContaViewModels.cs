@@ -1,6 +1,7 @@
 ﻿using ControleDeBar.Dominio.ModuloConta;
 using ControleDeBar.Dominio.ModuloGarcom;
 using ControleDeBar.Dominio.ModuloMesa;
+using ControleDeBar.Dominio.ModuloProduto;
 using ControleDeBar.WebApp.Extensions;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
@@ -134,4 +135,31 @@ public class PedidoContaViewModel
         QuantidadeSolicitada = quantidadeSolicitada;
         TotalParcial = totalParcial;
     }
+}
+public class GerenciarPedidosViewModel
+{
+    public DetalhesContaViewModel Conta { get; set; }
+    public List<SelectListItem> Produtos { get; set; }
+
+    public GerenciarPedidosViewModel() { }
+
+    public GerenciarPedidosViewModel(Conta conta, List<Produto> produtos) : this()
+    {
+        Conta = conta.ParaDetalhesVM();
+
+        Produtos = new List<SelectListItem>();
+
+        foreach (var p in produtos)
+        {
+            var selectItem = new SelectListItem(p.Nome, p.Id.ToString());
+
+            Produtos.Add(selectItem);
+        }
+    }
+}
+
+public class AdicionarPedidoViewModel
+{
+    public Guid IdProduto { get; set; }
+    public int QuantidadeSolicitada { get; set; }
 }

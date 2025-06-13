@@ -1,0 +1,104 @@
+﻿@model GerenciarPedidosViewModel
+
+@{
+    Layout = "_Layout";
+    ViewBag.Titulo = "Gerenciar Pedidos de Conta";
+}
+
+<hr />
+<div class="row justify-content-center my-5">
+    <div class="col-md-8">
+        <div class="card rounded-4 border-0">
+            <div class="card-body p-md-5">
+                <h3>Gestão de Pedidos da Conta</h3>
+
+                <div class="row my-3">
+                    <div class="mt-2">
+                        <label class="control-label"><strong>Titular:</strong> @Model.Conta.Titular</label>
+                    </div>
+
+                    <div class="mt-2">
+                        <label class="control-label"><strong>Mesa:</strong> @Model.Conta.Mesa</label>
+                    </div>
+
+                    <div class="mt-2">
+                        <label class="control-label"><strong>Garçom:</strong> @Model.Conta.Garcom</label>
+                    </div>
+                </div>
+
+                <h4 class="my-3">Pedidos</h4>
+
+                <form class="d-flex flex-wrap gap-2 align-items-center" action="/contas/@Model.Conta.Id/adicionar-pedido" method="post">
+                    <div class="col-12 col-md-7">
+                        <label class="control-label">Produto: </label>
+
+                        <select class="form-select w-100" name="IdProduto">
+                            @foreach (var produto in Model.Produtos)
+                            {
+                                <option value="@produto.Value">@produto.Text</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="col-12 col-md-3">
+                        <label class="control-label">Quantidade: </label>
+                        <input type="number" min="1" value="1" name="quantidadeSolicitada" class="form-control w-100" />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary align-self-end col">
+                        Adicionar
+                    </button>
+                </form>
+
+                @if (!Model.Conta.Pedidos.Any())
+                {
+                    <p class="fw-semibold mt-3">Ainda não há nenhum pedido relacionado à conta...</p>
+                }
+                else
+                {
+                    <table class="table table-sm table-striped mt-3">
+                        <thead>
+                            <tr>
+                                <th>Produto</th>
+                                <th>Qtd.</th>
+                                <th>Valor</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var pedido in Model.Conta.Pedidos)
+                            {
+                                <tr>
+                                    <td>@pedido.Produto</td>
+                                    <td>@pedido.QuantidadeSolicitada</td>
+                                    <td>@pedido.TotalParcial.ToString("C2")</td>
+                                    <td>
+                                        <div class="d-flex justify-content-center gap-2">
+                                            <form action="/contas/@Model.Conta.Id/remover-pedido/@pedido.Id" method="post">
+                                                <button class="btn btn-sm btn-danger" title="Remover">
+                                                    <i class="bi bi-trash3"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+
+                <div class="d-flex justify-content-end mt-3">
+                    <label class="control-label"><strong>Total da Conta:</strong> @Model.Conta.ValorTotal.ToString("C2")</label>
+                </div>
+
+                <div class="form-group d-flex align-items-center justify-content-end gap-3 mt-3">
+                    <a href="/contas">Voltar para a listagem</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
