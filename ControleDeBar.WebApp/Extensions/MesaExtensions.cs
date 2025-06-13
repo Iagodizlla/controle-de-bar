@@ -15,7 +15,8 @@ public static class MesaExtensions
         return new DetalhesMesaViewModel(
                 mesa.Id,
                 mesa.Numero,
-                mesa.Capacidade
+                mesa.Capacidade,
+                "livre"
         );
     }
 }

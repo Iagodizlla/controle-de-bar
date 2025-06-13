@@ -1,6 +1,8 @@
-﻿using ControleDeBar.Dominio.ModuloMesa;
+﻿using ControleDeBar.Dominio.ModuloConta;
+using ControleDeBar.Dominio.ModuloMesa;
 using ControleDeBar.Infraestrura.Arquivos.Compartilhado;
 using ControleDeBar.Infraestrura.Arquivos.ModuloMesa;
+using ControleDeBar.Infraestrutura.Arquivos.ModuloConta;
 using ControleDeBar.WebApp.Extensions;
 using ControleDeBar.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -12,11 +14,13 @@ public class MesaController : Controller
 {
     private readonly ContextoDados contextoDados;
     private readonly IRepositorioMesa repositorioMesa;
+    private readonly IRepositorioConta repositorioConta;
 
     public MesaController()
     {
         contextoDados = new ContextoDados(true);
         repositorioMesa = new RepositorioMesaEmArquivo(contextoDados);
+        repositorioConta = new RepositorioContaEmArquivo(contextoDados);
     }
 
     [HttpGet]
@@ -127,9 +131,18 @@ public class MesaController : Controller
         var detalhesVM = new DetalhesMesaViewModel(
             id,
             registroSelecionado.Numero,
-            registroSelecionado.Capacidade
+            registroSelecionado.Capacidade,
+            "livre"
         );
+
+        foreach(var c in repositorioConta.SelecionarContasAbertas())
+        {
+            if(c.Mesa == registroSelecionado)
+            {
+                detalhesVM.EstaOcupada = "ocupada";
+            }
+        }
 
         return View(detalhesVM);
     }
-}
+};
