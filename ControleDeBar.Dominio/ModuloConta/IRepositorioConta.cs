@@ -7,4 +7,5 @@ public interface IRepositorioConta
     List<Conta> SelecionarContas();
     List<Conta> SelecionarContasAbertas();
     List<Conta> SelecionarContasFechadas();
+    List<Conta> SelecionarContasPorPeriodo(DateTime data);
 }

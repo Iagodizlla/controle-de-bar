@@ -4,6 +4,7 @@ using ControleDeBar.Dominio.ModuloMesa;
 using ControleDeBar.Dominio.ModuloProduto;
 using ControleDeBar.WebApp.Extensions;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Win32;
 using System.ComponentModel.DataAnnotations;
 
 namespace ControleDeBar.WebApp.Models;
@@ -136,6 +137,7 @@ public class PedidoContaViewModel
         TotalParcial = totalParcial;
     }
 }
+
 public class GerenciarPedidosViewModel
 {
     public DetalhesContaViewModel Conta { get; set; }
@@ -162,4 +164,22 @@ public class AdicionarPedidoViewModel
 {
     public Guid IdProduto { get; set; }
     public int QuantidadeSolicitada { get; set; }
+}
+
+public class FaturamentoViewModel
+{
+    public List<DetalhesContaViewModel> Registros { get; set; }
+    public decimal Total { get; set; }
+
+    public FaturamentoViewModel(List<Conta> contas)
+    {
+        Registros = new List<DetalhesContaViewModel>();
+
+        foreach (var c in contas)
+        {
+            Total += c.CalcularValorTotal();
+
+            Registros.Add(c.ParaDetalhesVM());
+        }
+    }
 }

@@ -1,0 +1,56 @@
+﻿@model FaturamentoViewModel?
+
+@{
+    Layout = "_Layout";
+    ViewBag.Titulo = "Faturamento de Contas";
+}
+
+<form class="d-grid d-md-flex flex-wrap align-items-end gap-2" action="/contas/faturamento" method="get">
+    <div class="form-group d-grid">
+        <label for="data" class="control-label fs-6">Data:</label>
+        <input name="data" type="date" class="form-control" value="@(string.IsNullOrWhiteSpace(Context.Request.Query["data"]) ? DateTime.Today.ToString("yyyy-MM-dd") : Context.Request.Query["data"])" />
+    </div>
+
+    <button class="btn btn-primary px-5">
+        <i class="bi bi-filter"></i>
+        Filtrar
+    </button>
+</form>
+
+<hr />
+
+@if (Model is not null)
+{
+    @if (!Model.Registros.Any())
+    {
+        <p>Nenhum registro foi encontrado para a data solicitada.</p>
+    }
+    else
+    {
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>Titular</th>
+                    <th>Garçom</th>
+                    <th>Mesa</th>
+                    <th>Valor Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var conta in Model.Registros)
+                {
+                    <tr>
+                        <td>@conta.Titular</td>
+                        <td>@conta.Garcom</td>
+                        <td>@conta.Mesa</td>
+                        <td>@conta.ValorTotal.ToString("C2")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="d-flex justify-content-end">
+            <span><strong>Total Diário:</strong> @Model.Total.ToString("C2")</span>
+        </div>
+    }
+}

@@ -63,4 +63,16 @@ public class RepositorioContaEmArquivo : IRepositorioConta
 
         return contasFechadas;
     }
+    public List<Conta> SelecionarContasPorPeriodo(DateTime data)
+    {
+        var contasDoPeriodo = new List<Conta>();
+
+        foreach (var item in registros)
+        {
+            if (item.Fechamento.Date == data.Date)
+                contasDoPeriodo.Add(item);
+        }
+
+        return contasDoPeriodo;
+    }
 }

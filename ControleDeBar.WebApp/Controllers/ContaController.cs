@@ -10,6 +10,7 @@ using ControleDeBar.Infraestrutura.Arquivos.ModuloProduto;
 using ControleDeBar.WebApp.Extensions;
 using ControleDeBar.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Win32;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace ControleDeBar.WebApp.Controllers;
@@ -170,5 +171,18 @@ public class ContaController : Controller
         var gerenciarPedidosVm = new GerenciarPedidosViewModel(contaSelecionada, produtos);
 
         return View("GerenciarPedidos", gerenciarPedidosVm);
+    }
+
+    [HttpGet("faturamento")]
+    public IActionResult Faturamento(DateTime? data)
+    {
+        if (!data.HasValue)
+            return View();
+
+        var registros = repositorioConta.SelecionarContasPorPeriodo(data.GetValueOrDefault());
+
+        var faturamentoVM = new FaturamentoViewModel(registros);
+
+        return View(faturamentoVM);
     }
 }
