@@ -39,7 +39,7 @@
 
 - **Geral**
   - Visualizar faturamento do dia
-  - 
+
 ---
 
 ## Como utilizar
